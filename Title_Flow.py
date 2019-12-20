@@ -51,8 +51,8 @@ while True:
     title_surface.blit(header_surface_points, (1750, 10))
     draw_index = 0
     for element in list_names:
-        name = data_font.render(element[0], True, (0, 0, 255))
-        points = data_font.render(str(element[2]), True, (0, 0, 255))
+        name = data_font.render(element[0], True, (255, 255, 204))
+        points = data_font.render(str(element[2]), True, (255, 255, 204))
         y = draw_index + 50
         title_surface.blit(name, (1420, y))
         if element[1] == 'm':
