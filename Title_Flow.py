@@ -2,9 +2,6 @@ import pygame
 import sqlite3
 
 
-
-
-
 WINDOW_WIDTH = 1900
 WINDOW_HEIGHT = 1000
 
