@@ -1,6 +1,18 @@
 import sqlite3
 import random
 
+def get_Title():
+    connection = sqlite3.connect("/home/ram/MagicRoom.db")
+    cur = connection.cursor()
+    sql = "select Lesson_Title from Magic_Science_Lessons where Lesson_ID = ?"
+    cur.execute(sql, (4, ))
+    text = cur.fetchone()[0]
+    #print(text)
+    connection.commit()
+    return text
+
+#get_Title()
+
 
 def get_Quote():
     connection = sqlite3.connect("/home/ram/MagicRoom.db")

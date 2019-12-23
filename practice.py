@@ -1,4 +1,5 @@
 import pygame
+import pyttsx3
 
 pygame.init()
 screen = pygame.display.set_mode((400, 300))
@@ -7,6 +8,21 @@ done = False
 screen.fill((255, 255, 255))
 
 
+engine = pyttsx3.init()
+
+voices = engine.getProperty('voices')
+for voice in voices:
+    print("Voice:")
+    print(" - ID: %s" % voice.id)
+    print(" - Name: %s" % voice.name)
+    print(" - Languages: %s" % voice.languages)
+    print(" - Gender: %s" % voice.gender)
+    print(" - Age: %s" % voice.age)
+engine.setProperty('voice', 'en-westindies+m6')
+engine.setProperty('gender','female')
+engine.setProperty('rate', 120)
+engine.say("We are all in the same boat")
+engine.runAndWait()
 while not done:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
