@@ -1,5 +1,6 @@
 import pygame
 import sqlite3
+import Data_Flow
 
 
 WINDOW_WIDTH = 1900
@@ -7,6 +8,7 @@ WINDOW_HEIGHT = 1000
 
 CLASS_CONTEXT_WIDTH = 500
 CLASS_CONTEXT_HEIGHT = 1000
+d_text = ''
 
 FPS = 10
 pygame.init()
@@ -22,7 +24,22 @@ header_surface_name = class_font.render("Name", True,(0, 255, 0))
 header_surface_badge = class_font.render("Badge", True,(0, 255, 0))
 header_surface_points = class_font.render("Points", True,(0, 255, 0))
 data_font = pygame.font.Font("Quite Magical - TTF.ttf", 32)
+text_font = pygame.font.Font("Quite Magical - TTF.ttf", 42)
 list_names = []
+
+def type_writer(t_surface, display_text,start_pos,text_font, rgb):
+    global WINDOW_HEIGHT, WINDOW_WIDTH, d_text
+    list_text = list(display_text)
+    for element in list_text:
+        d_text += element
+        text_surface = text_font.render(element, True, rgb)
+        x, y = start_pos
+        start_pos = x+14, y
+        t_surface.blit(text_surface, start_pos)
+        pygame.display.update()
+        pygame.time.wait(60)
+
+
 
 
 
@@ -37,11 +54,13 @@ connection.commit()
 connection.close()
 
 
-
+quote = Data_Flow.get_Quote()
+quote_text = text_font.render(quote, True, (255,255,200))
 
 fpsclock = pygame.time.Clock()
 
 class_context_surface.set_alpha(0)
+
 while True:
     fpsclock.tick(FPS)
 
@@ -72,7 +91,12 @@ while True:
             class_context_surface.blit(premium, (185, y))
         class_context_surface.blit(points, (365, y))
         draw_index += 30
+
     title_surface.blit(class_context_surface, (1400, 5))
+    if len(d_text) == 0:
+        type_writer(title_surface, quote, (150, 50), text_font, (255, 255, 200))
+    else:
+        title_surface.blit(quote_text, (150, 50))
     pygame.display.flip()
 
 
